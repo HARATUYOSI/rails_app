@@ -13,8 +13,8 @@
 ActiveRecord::Schema.define(version: 20190330141030) do
 
   create_table "favorites", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "micropost_id"
+    t.integer "user_id", null: false
+    t.integer "micropost_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["micropost_id"], name: "index_favorites_on_micropost_id"

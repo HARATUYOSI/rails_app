@@ -113,4 +113,12 @@ class UserTest < ActiveSupport::TestCase
     end
 
   end
+
+  test "ユーザー削除時に、関連付けされたお気に入りモデルが削除されるかの検証" do
+    assert_difference 'Favorite.count', -1 do
+      users(:michael).destroy
+    end
+  end
+
+  
 end
