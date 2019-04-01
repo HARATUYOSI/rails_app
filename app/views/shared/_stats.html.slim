@@ -15,3 +15,10 @@
     = @user.followers.count
   |  followers 
   </a>
+  |  <a href="
+  = favorites_user_path(@user)
+  | "> 
+  strong#followers.stat
+    = @user.favorite_microposts.count
+  |  favorites 
+  </a>

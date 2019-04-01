@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
+  before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :favorites]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
   def new
@@ -58,6 +58,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @users = @user.followers.paginate(page: params[:page])
     render 'show_follow'
+  end
+
+  def favorites
+    @title = 'Favorite'
+    @user = User.find(params[:id])
+    @fav_microposts = @user.favorite_microposts.paginate(page: params[:page])
+    render 'show_favorites'
   end
 
   private

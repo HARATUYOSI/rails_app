@@ -28,4 +28,10 @@ class MicropostTest < ActiveSupport::TestCase
   test "order should be most recent first" do
     assert_equal microposts(:most_recent), Micropost.first
   end
+
+  test "マイクロポスト削除時に、関連付けされたお気に入りモデルが削除されるかの検証" do
+    assert_difference 'Favorite.count', -1 do
+      microposts(:orange).destroy
+    end
+  end
 end
