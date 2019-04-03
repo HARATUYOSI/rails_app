@@ -26,6 +26,11 @@ class MicropostsInterfaceTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
     follow_redirect!
     assert_match content, response.body
+    assert_difference 'Micropost.count', 1 do
+      post microposts_path, xhr: true, params: { micropost: { content: content.upcase
+                                                    } }
+    end
+    assert_match content.upcase, response.body
     # 投稿を削除する
     assert_select 'a', text: 'delete'
     first_micropost = @user.microposts.paginate(page: 1).first
