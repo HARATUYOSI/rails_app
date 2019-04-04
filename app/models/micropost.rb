@@ -3,7 +3,7 @@ class Micropost < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
   has_many :favorite_users, through: :favorites, source: :user
-  has_many :hashtags, through: :micropost_hashtags
+  has_many :hashtags
   has_many :micropost_hashtags, dependent: :destroy
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
