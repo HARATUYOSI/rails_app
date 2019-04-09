@@ -1,0 +1,7 @@
+- if @microposts
+  h3 = "##{@hashtag.name}"
+  ol.microposts
+    = render @microposts
+    = will_paginate @microposts
+- else
+  h3 = "No results for ##{@nil_hashtag}"

@@ -3,8 +3,9 @@ class Micropost < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
   has_many :favorite_users, through: :favorites, source: :user
-  has_many :hashtags
   has_many :micropost_hashtags, dependent: :destroy
+  has_many :hashtags, through: :micropost_hashtags, source: :hashtag
+  
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
   validates :user_id, presence: true
@@ -26,6 +27,15 @@ class Micropost < ApplicationRecord
   def favorite?(user)
     favorite_users.include?(user)
   end
+
+  def save_hashtag
+    hashtags = self.content.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    hashtags.uniq.map do |hashtag|
+      tag = Hashtag.find_or_create_by(name: hashtag.delete('#'))
+      self.hashtags << tag
+    end
+  end
+
 
   private
     def picture_size
