@@ -1,0 +1,18 @@
+- if logged_in?
+  .row
+    aside.col-md-4
+      section.user_info
+        = render 'shared/user_info'
+      section.stats
+        = render 'shared/stats'
+      section.micropost_form
+        = render 'shared/micropost_form' 
+    .col-md-8
+      = render 'shared/hashtag_microposts', locals: { microposts: @microposts }
+- else 
+  .row     
+    .col-md-12
+      = render 'shared/hashtag_microposts', locals: { microposts: @microposts }
+      
+      
+      

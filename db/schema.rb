@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190330141030) do
+ActiveRecord::Schema.define(version: 20190403135211) do
 
   create_table "favorites", force: :cascade do |t|
     t.integer "user_id", null: false
@@ -20,6 +20,23 @@ ActiveRecord::Schema.define(version: 20190330141030) do
     t.index ["micropost_id"], name: "index_favorites_on_micropost_id"
     t.index ["user_id", "micropost_id"], name: "index_favorites_on_user_id_and_micropost_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "hashtags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_hashtags_on_name", unique: true
+  end
+
+  create_table "micropost_hashtags", force: :cascade do |t|
+    t.integer "micropost_id", null: false
+    t.integer "hashtag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hashtag_id", "micropost_id"], name: "index_micropost_hashtags_on_hashtag_id_and_micropost_id", unique: true
+    t.index ["hashtag_id"], name: "index_micropost_hashtags_on_hashtag_id"
+    t.index ["micropost_id"], name: "index_micropost_hashtags_on_micropost_id"
   end
 
   create_table "microposts", force: :cascade do |t|
