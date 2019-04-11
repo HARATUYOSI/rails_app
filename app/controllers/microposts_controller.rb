@@ -7,14 +7,16 @@ class MicropostsController < ApplicationController
 		if @micropost.save
 			@micropost.save_hashtag
 			@feed_items = current_user.feed.paginate(page: 1)
-			flash[:success] = "Micropost created!"
 			respond_to do |format|
 				format.html {redirect_to request.referrer || root_url}
-				format.js
+				format.js { flash[:success] = "Micropost created!" }
 			end
 		else
 			@feed_items = []
-			render 'static_pages/home'
+			respond_to do |format|
+				format.html {render 'static_pages/home'}
+				format.js {render 'rollback'}
+			end
 		end
 	end
 
