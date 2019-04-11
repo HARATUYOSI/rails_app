@@ -2,3 +2,4 @@ $('#micropost_content').val('');
 $('#microposts').html(
   '<%= j(render partial: 'microposts/micropost' ,collection: @feed_items) %>'
 );
+$('#flash_message_area').html('<%= j(render partial: 'shared/flash_message') %>');
